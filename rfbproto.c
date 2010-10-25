@@ -335,7 +335,7 @@ Bool SendSetPixelFormat()
 
 Bool SendSetEncodings()
 {
-  char buf[sz_rfbSetEncodingsMsg + MAX_ENCODINGS * 4];
+  char buf[sz_rfbSetEncodingsMsg + MAX_ENCODINGS * sizeof(CARD32)];
   rfbSetEncodingsMsg *se = (rfbSetEncodingsMsg *)buf;
   CARD32 *encs = (CARD32 *)(&buf[sz_rfbSetEncodingsMsg]);
   int len = 0;

@@ -34,7 +34,7 @@
 
 // Define the CARD* types as used in X11/Xmd.h
 
-typedef unsigned long CARD32;
+typedef unsigned int CARD32;
 typedef unsigned short CARD16;
 typedef short INT16;
 typedef unsigned char  CARD8;
