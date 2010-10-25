@@ -212,6 +212,8 @@ InitialiseRFBConnection()
 		appData.passwordFile);
 	return False;
       }
+    } else if (appData.password) {
+      passwd = strdup(appData.password);
     } else {
       passwd = getpass("Password: ");
     }

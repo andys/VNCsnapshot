@@ -87,6 +87,9 @@ typedef struct {
   char *encodingsString;
 
   char *passwordFile;
+  
+  char *password;
+  int raw_port;
 
   Bool debug;
 

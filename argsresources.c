@@ -59,6 +59,8 @@ Options cmdLineOptions[] = {
   {"-vncQuality",    setNumber, &appData.qualityLevel, 0, " <JPEG-QUALITY-VALUE>: transmission quality level (0..9: 0-low, 9-high)"},
   {"-fps",           setNumber, &appData.fps, 0, " <FPS>: Wait <FPS> seconds between snapshots, default 60"},
   {"-count",         setNumber, &appData.count, 0, " <COUNT>: Capture <COUNT> images, default 1"},
+  {"-port",          setNumber, &appData.raw_port, 0, " <PORT>: raw TCP port number to connect to (not VNC display number)"},
+  {"-password",      setString, &appData.password, 0, " <PASSWORD>: actual unecrypted password"},
   {NULL, NULL, NULL, 0}
 };
 
@@ -275,9 +277,17 @@ GetArgsAndResources(int argc, char **argv)
 
   colonPos = strchr(vncServerName, ':');
   if (colonPos == NULL) {
-    /* No colon -- use default port number */
+    /* No colon */
+
     strcpy(vncServerHost, vncServerName);
-    vncServerPort = SERVER_PORT_OFFSET;
+    
+    if(appData.raw_port>0) {
+      /* use command-line supplied TCP port */
+      vncServerPort = appData.raw_port;
+    } else {  	  
+      /* use default port number */
+      vncServerPort = SERVER_PORT_OFFSET;
+    }
   } else {
     memcpy(vncServerHost, vncServerName, colonPos - vncServerName);
     vncServerHost[colonPos - vncServerName] = '\0';
